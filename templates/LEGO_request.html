@@ -1,0 +1,11 @@
+{% extends 'LEGOpng/layout.html' %}
+{#{% load static %}#}
+
+{% block title %}LEGO parser {{ lego_number }}{% endblock %}
+
+{% block content %}
+<div class="info">
+    <p>Запрашиваемый номер набора: {{ lego_number }}, его минимальная цена: {{ minprice }}</p>
+    <p><img src="data:image/png;base64,{{ image_b64 }}" alt="LEGO plot" class="plot"></p>
+</div>
+{% endblock %}

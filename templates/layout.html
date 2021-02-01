@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'LEGOpng/style.css' %}">
+</head>
+<body>
+    <div id="flex-outer"> <!-- класс, вмещающий header, main, aside, footer -->
+        <div id="container">
+            <aside>
+                <p><a href="{% url 'index' %}"><img src="{% static 'LEGOpng/to_main.png' %}" height="100" alt="На главную"></a></p>
+                <h3>Что в базе данных?</h3>
+                <ul>
+                    <li><a href="{% url 'baseout' %}">Список наборов с историей цен</a></li>
+                    <li><a href="{% url 'baseout' %}">TEST LINK2</a></li>
+                    <li><a href="{% url 'baseout' %}">TEST LINK3</a></li>
+                </ul>
+            </aside>
+            <main>
+                <h2>Цены на наборы LEGO с сайтов:<br>
+                    <a href="https://www.detmir.ru/catalog/index/name/lego/" target="_blank">detmir.ru</a>
+                    <a href="https://www.wildberries.ru/brands/lego" target="_blank">wildberries.ru</a>
+                    <a href="https://www.onlinetrade.ru/catalogue/konstruktory_lego-c105/" target="_blank">onlinetrade.ru</a></h2>
+                <div class="form_action">
+                    <form action="/" method="post">{% csrf_token %}
+                        <p>Введи номер набора LEGO</p>
+                        <p><input id="request_number" type="text" name="lego_number" value="42110">
+                        <input type="submit" value="OK"></p>
+                        <div id="checkboxes">
+                            <p> <label>
+                                <input type="checkbox" name="detmir" value="+detmir" checked> {# для checkbox нужно value? #}
+                                detmir.ru
+                            </label>
+                            <label>
+                                <input type="checkbox" name="wildberries" value="+wildberries">
+                                wildberries.ru
+                            </label>
+                            <label>
+                                <input type="checkbox" name="onlinetrade" value="+onlinetrade">
+                                onlinetrade.ru
+                            </label></p>
+                        </div>
+                        <div id="twodates">
+                            <p>Период</p>
+                            <p>с <input type="date" name="date1" max="{{ today_date }}"></p>
+                            <p>по <input type="date" name="date2" value="{{ today_date }}" max="{{ today_date }}"></p>
+                        </div>
+                    </form>
+                </div>
+                {% block content %}
+                {% endblock %}
+            </main>
+        </div>
+        <footer>SOME FOOTER</footer>
+    </div>
+</body>
+</html>
